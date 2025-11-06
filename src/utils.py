@@ -1,14 +1,17 @@
 from math import floor
 
-from .redis import RedisClient
+from src.redis import RedisClient
 
 
 def spigot_algorthm(accuracy: int):
+    redis_client = RedisClient()
+
     if accuracy < 1:
+        redis_client.set("progress", 1)
         return "INVALID PRECISION GIVEN"
     if accuracy == 1:
+        redis_client.set("progress", 1)
         return "3"
-    redis_client = RedisClient()
 
     res = ""
     length = floor(10 * accuracy / 3) + 1

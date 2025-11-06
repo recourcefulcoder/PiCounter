@@ -1,5 +1,5 @@
 import redis
-from .config import REDIS_URL
+from src.config import REDIS_URL
 
 
 class RedisClient:
@@ -15,7 +15,7 @@ class RedisClient:
     def __init__(self, config_url: str = REDIS_URL):
         if self.__initialized:
             return
-        self._redis = redis.Redis.from_url(config_url)
+        self._redis = redis.Redis(host=REDIS_URL)
         self.__initialized = True
 
     def set(self, *args, **kwargs):

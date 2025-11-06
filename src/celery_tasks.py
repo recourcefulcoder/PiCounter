@@ -1,10 +1,8 @@
-from math import floor
-
 from celery import Celery
 
-from .config import REDIS_URL
-from .redis import RedisClient
-from .utils import spigot_algorthm
+from src.config import REDIS_URL
+from src.redis import RedisClient
+from src.utils import spigot_algorthm
 
 c_app = Celery(broker=REDIS_URL)
 

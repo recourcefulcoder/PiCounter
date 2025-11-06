@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from .redis import RedisClient
+from src.redis import RedisClient
 
 
 def get_redis_client():

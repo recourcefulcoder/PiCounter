@@ -19,8 +19,10 @@ services:
         condition: service_healthy
 
 
-  user-service:
+  calculation-service:
     build: .
+    ports:
+      - "8000:8000"
     environment:
       REDIS_PORT: 6379
       REDIS_HOST: redis

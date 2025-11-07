@@ -5,13 +5,16 @@ from fastapi import FastAPI
 from src.celery_tasks import calculate_pi_task
 from src.redis import RedisClient
 import src.dependencies as dp
+from src.schemas import ProgressResponse
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    RedisClient()
-    yield
-    RedisClient().close_connection()
+	redis_client = RedisClient()
+	redis_client.set("state", "FINISHED")
+	redis_client.set("progress", 1.0)
+	yield
+	RedisClient().close_connection()
 
 
 app = FastAPI(lifespan=lifespan)
@@ -26,9 +29,12 @@ async def calculate_pi(n: int):
 
 
 @app.get("/check_progress")
-async def check_progress(redis_client: dp.RedisDep):
-	return {
-		"state": redis_client.get("state"),
-		"progress": redis_client.get("progress"),
-		"result": redis_client.get("result"),
-	}
+async def check_progress(redis_client: dp.RedisDep) -> ProgressResponse:
+	result = redis_client.get("result")
+	if result is not None:
+		result = result.decode()
+	return ProgressResponse(
+		state=redis_client.get("state").decode(),
+		progress=redis_client.get("progress"),
+		result=result,
+	)

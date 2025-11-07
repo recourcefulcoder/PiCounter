@@ -8,5 +8,5 @@ env_path = os.path.join(base_dir, ".env")
 if os.path.exists(env_path):
     load_dotenv(env_path)
 
-broker_host = os.getenv("REDIS_HOST", "localhost")
-redis_port = int(os.getenv("REDIS_PORT", 6379))
+BROKER_HOST = os.getenv("REDIS_HOST", "localhost")
+BROKER_PORT = int(os.getenv("REDIS_PORT", 6379))

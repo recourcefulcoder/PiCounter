@@ -3,7 +3,10 @@ from math import floor
 from src.redis import RedisClient
 
 
-def spigot_algorthm(accuracy: int):
+def spigot_calculation(accuracy: int):
+    # this function not only calculates digits of pi,
+    # but also sends progress info to redis.
+
     redis_client = RedisClient()
 
     if accuracy < 1:

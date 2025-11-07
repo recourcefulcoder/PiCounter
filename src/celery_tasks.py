@@ -13,7 +13,7 @@ def calculate_pi_task(
         accuracy: int
 ):
     redis_client = RedisClient()
-    current_id = redis_client.get(f"current_task_id")
+    current_id = redis_client.get("current_task_id")
     if current_id is not None:
         c_app.control.revoke(current_id.decode(), terminate=True)
 

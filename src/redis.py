@@ -1,4 +1,5 @@
 import redis
+
 from src.config import BROKER_HOST, BROKER_PORT
 
 

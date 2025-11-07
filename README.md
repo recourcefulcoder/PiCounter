@@ -8,7 +8,7 @@ docker compose up
 
 # API documentation
 
-What are endpoints, what http methods they accept and what parameters they requiremay be seen in _**SwaggerUI**_ - check out the `/docs` endpoint.
+What are endpoints, what http methods they accept and what parameters they require may be seen in _**SwaggerUI**_ - check out the `/docs` endpoint.
 
 This documentation focuses more on details and nuances of realisation that may be curious to future developers.
 

@@ -3,17 +3,17 @@ from math import floor
 from src.redis import RedisClient
 
 
-def spigot_calculation(accuracy: int):
+def spigot_calculation(accuracy: int, session_id: str):
     # this function not only calculates digits of pi,
     # but also sends progress info to redis.
 
     redis_client = RedisClient()
 
     if accuracy < 1:
-        redis_client.set("progress", 1)
+        redis_client.set(f"progress:{session_id}", 1)
         return "INVALID PRECISION GIVEN"
     if accuracy == 1:
-        redis_client.set("progress", 1)
+        redis_client.set(f"progress:{session_id}", 1)
         return "3"
 
     res = ""
@@ -43,7 +43,7 @@ def spigot_calculation(accuracy: int):
                 if nines != 0:
                     res += ("9" * nines)
                     nines = 0
-        redis_client.set("progress", round(i / accuracy, 2))
+        redis_client.set(f"progress:{session_id}", round(i / accuracy, 2))
     res += str(predigit)
     res = "3," + res[2:]
     return res

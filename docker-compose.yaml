@@ -27,6 +27,13 @@ services:
       REDIS_PORT: 6379
       REDIS_HOST: redis
     restart: on-failure:3
+    secrets:
+      - session_secret
     depends_on:
       celery:
         condition: service_started
+
+
+secrets:
+  session_secret:
+    file: session_secret.txt
